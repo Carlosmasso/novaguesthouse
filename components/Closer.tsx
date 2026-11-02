@@ -5,7 +5,7 @@ import { src } from "@/lib/data";
 import { waLink } from "@/lib/utils";
 
 export default function Closer() {
-  const { t } = useI18n();
+  const { t, href } = useI18n();
   return (
     <section className="closer" aria-label="Contacto">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -16,7 +16,7 @@ export default function Closer() {
         <p>{t("cl_p")}</p>
         <div className="acts">
           <a className="btn light" href={waLink()} target="_blank" rel="noopener"><span>{t("cl_wa")}</span><span className="ar">→</span></a>
-          <Link className="btn light" href="/#habitaciones" style={{ borderColor: "transparent" }}><span>{t("see_rooms")}</span><span className="ar">→</span></Link>
+          <Link className="btn light" href={href("/#habitaciones")} style={{ borderColor: "transparent" }}><span>{t("see_rooms")}</span><span className="ar">→</span></Link>
         </div>
       </div>
     </section>

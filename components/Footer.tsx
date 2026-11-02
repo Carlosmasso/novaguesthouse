@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { CONFIG } from "@/lib/config";
 import { telHref, waLink } from "@/lib/utils";
@@ -24,7 +25,12 @@ export default function Footer() {
               <dt>Check-in</dt><dd>{CONFIG.checkin}</dd><dt>Check-out</dt><dd>{CONFIG.checkout}</dd>
             </dl>
           </div>
-          <div className="fine"><span suppressHydrationWarning>© {new Date().getFullYear()} Nova Guest House Central · Alcorcón, Madrid</span><span><Todo v={CONFIG.registry} label={t("reg")} /></span></div>
+          <div className="fine"><span suppressHydrationWarning>© {new Date().getFullYear()} Nova Guest House Central · Alcorcón, Madrid</span><span>{t("reg")}: <Todo v={CONFIG.registry} label="—" /></span>
+            {/* Los textos legales solo existen en español (versión legalmente válida) */}
+            <nav className="legal-links" aria-label={t("legal_nav")}>
+              <Link href="/aviso-legal/">{t("legal_notice")}</Link><Link href="/privacidad/">{t("privacy")}</Link><Link href="/cookies/">Cookies</Link>
+            </nav>
+          </div>
         </div>
       </footer>
       <a className="fab" href={waLink()} target="_blank" rel="noopener" aria-label="WhatsApp">

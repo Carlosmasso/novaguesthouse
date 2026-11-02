@@ -4,6 +4,7 @@
    NO publicar: las reseñas y la puntuación son ficticias.
    ===================================================================== */
 export const DEMO = {
+  owner:"Titular de ejemplo (demo)", nif:"B00000000 (demo)",
   email:"hola@novaguesthouse.com",
   registry:"VT-0000 (demo)",
   bookingUrl:"https://www.booking.com/",

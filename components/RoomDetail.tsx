@@ -9,7 +9,7 @@ import { Arrow, ArrowL, Chev, Icon } from "./ui";
 import { useLightbox } from "./Lightbox";
 
 export default function RoomDetail({ id }: { id: Room["id"] }) {
-  const { lang, t } = useI18n();
+  const { lang, t, href } = useI18n();
   const openLb = useLightbox();
   const r = rooms.find((x) => x.id === id)!;
   const other = rooms.find((x) => x !== r)!;
@@ -33,7 +33,7 @@ export default function RoomDetail({ id }: { id: Room["id"] }) {
   return (
     <div id="detail">
       <div className="wrap">
-        <Link className="back" href="/#habitaciones"><ArrowL />{t("back")}</Link>
+        <Link className="back" href={href("/#habitaciones")}><ArrowL />{t("back")}</Link>
         <div className="dtop"><div><span className="rnum">{t("room")} {r.n}</span><h1>{r.name[lang]}</h1></div><p>{r.lead[lang]}</p></div>
         <div className="dgal">
           <div className="stage" onClick={() => openLb(r.imgs, k)}
@@ -74,13 +74,13 @@ export default function RoomDetail({ id }: { id: Room["id"] }) {
           <aside className="aside">
             <div className="pr"><small>{t("from")}</small><b>{c.price || <span className="todo">[{t("price_todo")}]</span>}</b><small>{t("per_night")}</small></div>
             <ul>{(t("aside") as string[]).map((x) => <li key={x}>{x}</li>)}</ul>
-            <Link className="btn" href={`/?habitacion=${r.id}#reservar`}><span>{t("book_this")}</span><span className="ar">→</span></Link>
+            <Link className="btn" href={href(`/?habitacion=${r.id}#reservar`)}><span>{t("book_this")}</span><span className="ar">→</span></Link>
           </aside>
         </div>
       </div>
       <div className="wrap next">
         <span className="sub" style={{ display: "block", marginBottom: 18 }}>{t("other")}</span>
-        <Link href={`/habitaciones/${other.id}/`}>
+        <Link href={href(`/habitaciones/${other.id}/`)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <div className="ph"><img src={src(other.imgs[0])} alt={PH[lang][other.imgs[0]]} /></div>
           <div><span className="rnum" style={{ marginBottom: 6 }}>{t("room")} {other.n}</span><h3>{other.name[lang]}</h3></div>

@@ -10,14 +10,15 @@ const SLIDES = ["1000252614", "1000252617", "1000252618", "1000252616"];
 const MS = 7000;
 
 export default function Hero() {
-  const { lang, t } = useI18n();
+  const { lang, t, href } = useI18n();
   const [i, setI] = useState(0);
   const [tick, setTick] = useState(0); // reinicia la animación de la barra activa
+  const [paused, setPaused] = useState(false);
   useEffect(() => {
-    if (prefersReduced()) return;
+    if (paused || prefersReduced()) return;
     const id = setTimeout(() => { setI((k) => (k + 1) % SLIDES.length); setTick((x) => x + 1); }, MS);
     return () => clearTimeout(id);
-  }, [i, tick]);
+  }, [i, tick, paused]);
   const go = (k: number) => { setI(k); setTick((x) => x + 1); };
 
   return (
@@ -40,15 +41,18 @@ export default function Hero() {
                 <span className="ln"><span>{t("h1b")}</span></span>
               </h1>
               <div className="hero-actions">
-                <Link className="btn light" href="/#habitaciones"><span>{t("see_rooms")}</span><span className="ar">→</span></Link>
-                <div className="hero-ctrl">
+                <Link className="btn light" href={href("/#habitaciones")}><span>{t("see_rooms")}</span><span className="ar">→</span></Link>
+                <div className={`hero-ctrl${paused ? " paused" : ""}`}>
                   <span className="hero-count">{String(i + 1).padStart(2, "0")} / {String(SLIDES.length).padStart(2, "0")}</span>
                   <div className="bars">
                     {SLIDES.map((f, k) => (
-                      <button key={f + (k === i ? tick : "")} aria-label={String(k + 1)} onClick={() => go(k)}
-                        className={k === i ? "on" : k < i ? "done" : ""}><i /></button>
+                      <button key={f + (k === i ? tick : "")} aria-label={t("slide")(k + 1, SLIDES.length)} aria-current={k === i ? "true" : undefined}
+                        onClick={() => go(k)} className={k === i ? "on" : k < i ? "done" : ""}><i /></button>
                     ))}
                   </div>
+                  <button type="button" className="hero-pp" aria-label={paused ? t("play") : t("pause")} onClick={() => { setPaused(!paused); if (paused) go(i); }}>
+                    <svg viewBox="0 0 14 14" aria-hidden="true">{paused ? <path d="M4 2.5v9l7-4.5z" /> : <path d="M4.5 2.5v9M9.5 2.5v9" />}</svg>
+                  </button>
                 </div>
               </div>
             </div>

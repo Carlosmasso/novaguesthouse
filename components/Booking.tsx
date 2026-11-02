@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
+import { bookedOf, isFree, useBooking } from "@/lib/booking";
 import { useI18n } from "@/lib/i18n";
 import { CONFIG } from "@/lib/config";
 import { rooms, src } from "@/lib/data";
-import { addDays, fmt, iso, nightsBetween, today, waLink } from "@/lib/utils";
+import { fmt, nightsBetween, waLink } from "@/lib/utils";
 import { Reveal, SplitH2, Arrow } from "./ui";
 import DateRange from "./DateRange";
 import Select from "./Select";
@@ -19,22 +20,17 @@ const Plus = () => <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" /></svg>;
 
 export default function Booking() {
   const { lang, t } = useI18n();
-  const [room, setRoom] = useState<string>(rooms[0].id);
-  const [dates, setDates] = useState<[string, string]>(() => { const a = addDays(today(), 7); return [iso(a), iso(addDays(a, 3))]; });
-  const [guests, setGuests] = useState(2);
+  const { room, setRoom, dates, setDates, guests, setGuests, booked } = useBooking();
   const [eta, setEta] = useState("1");
   const [name, setName] = useState("");
   const [err, setErr] = useState("");
   const [msg, setMsg] = useState("");
   const [copied, setCopied] = useState("");
 
-  // /?habitacion=lino#reservar  → preselecciona la habitación (enlace desde la ficha)
-  useEffect(() => {
-    const h = new URLSearchParams(location.search).get("habitacion");
-    if (h && rooms.some((r) => r.id === h)) setRoom(h);
-  }, []);
-
   const n = nightsBetween(...dates);
+  const taken = bookedOf(booked, room);
+  const free = isFree(taken, ...dates);
+  const alt = free ? undefined : rooms.find((r) => r.id !== room && isFree(bookedOf(booked, r.id), ...dates));
   const nl = (k: number) => `${k} ${k === 1 ? t("night") : t("nights")}`;
   const build = () => {
     const r = rooms.find((x) => x.id === room)!;
@@ -45,8 +41,11 @@ export default function Booking() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!(n > 0)) return setErr(t("err_dates"));
+    if (!free) return setErr(t("err_busy"));
     if (!name.trim()) { setErr(t("err_name")); document.getElementById("name")?.focus(); return; }
-    setErr(""); setCopied(""); setMsg(build());
+    const m = build();
+    setErr(""); setCopied(""); setMsg(m);
+    window.open(waLink(m), "_blank", "noopener"); // directo a WhatsApp; el mensaje queda abajo por si no se abre
   };
   const copy = () => navigator.clipboard.writeText(msg).then(() => setCopied(t("copied"))).catch(() => setCopied(t("selected")));
 
@@ -80,7 +79,12 @@ export default function Booking() {
         </Reveal>
         <Reveal as="form" id="bk" noValidate onSubmit={submit}>
           <div className="f full"><Select id="room" label={t("f_room")} options={roomOpts} value={room} onChange={setRoom} /></div>
-          <DateRange value={dates} onChange={setDates} />
+          <DateRange value={dates} onChange={setDates} booked={taken} />
+          {!free && n > 0 && (
+            <p className="warn">{t("busy_room")(rooms.find((r) => r.id === room)!.name[lang])}
+              {alt && <> <button type="button" className="lnk" onClick={() => setRoom(alt.id)}>{t("busy_alt")(alt.name[lang])}</button></>}
+            </p>
+          )}
           <div className="f">
             <div className="gf" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <span className="lab">{t("f_guests")}</span>
@@ -100,6 +104,7 @@ export default function Booking() {
           {err && <p className="err">{err}</p>}
           {msg && (
             <div className="out">
+              <small className="mut">{t("wa_note")}</small>
               <span>{msg}</span>
               <div className="acts">
                 <a className="btn wa" href={waLink(msg)} target="_blank" rel="noopener"><span>{t("send_wa")}</span><span className="ar">→</span></a>

@@ -7,7 +7,7 @@ import { CONFIG } from "@/lib/config";
 import { Head, Reveal, Arrow } from "./ui";
 
 export default function Rooms() {
-  const { lang, t } = useI18n();
+  const { lang, t, href } = useI18n();
   return (
     <section className="band" id="habitaciones">
       <div className="wrap">
@@ -17,7 +17,7 @@ export default function Rooms() {
             const price = CONFIG.rooms[r.id].price;
             return (
               <Reveal as="div" key={r.id}>
-                <Link className="rcard" href={`/habitaciones/${r.id}/`}>
+                <Link className="rcard" href={href(`/habitaciones/${r.id}/`)}>
                   <div className="ph">
                     <span className="tag">{t("room")} {r.n}</span>
                     {/* eslint-disable-next-line @next/next/no-img-element */}

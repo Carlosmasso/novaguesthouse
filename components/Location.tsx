@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { CONFIG } from "@/lib/config";
 import { mapsQ, telHref } from "@/lib/utils";
@@ -6,6 +7,7 @@ import { Reveal, Todo } from "./ui";
 
 export default function Location() {
   const { lang, t } = useI18n();
+  const [map, setMap] = useState(false); // Google Maps solo bajo demanda: sin cookies de terceros hasta que se pide
   const [l1, l2] = CONFIG.address.split(" · ");
   const how = (h: string) => t(h === "en coche" ? "car" : h === "en bus" ? "bus" : "walk");
   return (
@@ -13,8 +15,15 @@ export default function Location() {
       <div className="wrap loc2">
         <Reveal className="mapbox">
           <div className="mapph"><div className="pinmark"><span className="dot" aria-hidden="true" /><span className="pinlab">Nova Guest House Central</span></div></div>
-          <iframe title="Google Maps" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-            src={`https://www.google.com/maps?q=${mapsQ()}&z=16&hl=${lang}&output=embed`} />
+          {map ? (
+            <iframe title="Google Maps" referrerPolicy="no-referrer-when-downgrade"
+              src={`https://www.google.com/maps?q=${mapsQ()}&z=16&hl=${lang}&output=embed`} />
+          ) : (
+            <div className="mapgate">
+              <button type="button" className="btn" onClick={() => setMap(true)}><span>{t("map_load")}</span></button>
+              <small>{t("map_note")}</small>
+            </div>
+          )}
         </Reveal>
         <Reveal className="locinfo">
           <span className="eyebrow">{t("loc_eyebrow")}</span>

@@ -5,6 +5,9 @@
 import { DEMO } from "./demo";
 
 const BASE = {
+  siteUrl:"",            // dominio definitivo, p. ej. "https://novaguesthouse.com" (si se deja vacío se usa la URL de Netlify)
+  owner:"", nif:"",      // titular de la web (persona o empresa) y su NIF/CIF — obligatorio en el aviso legal
+  postal:{street:"Paseo de Castilla, 41", cp:"28921", city:"Alcorcón", region:"Madrid"}, // para Google (datos estructurados)
   address:"P.º de Castilla, 41 (posterior), frente a P.º de Extremadura, 3 · 28921 Alcorcón, Madrid",
   mapsQuery:"Nova Guest House Central, Paseo de Castilla 41, 28921 Alcorcón, Madrid",
   phone:"624 86 75 40",  // atención 24 h, 365 días
@@ -36,7 +39,16 @@ const BASE = {
 
 // En desarrollo (o con NEXT_PUBLIC_DEMO=1) se rellenan los huecos con datos ficticios de lib/demo.ts.
 // La build de producción usa solo BASE: lo pendiente sigue resaltado.
-const SHOW_DEMO = process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_DEMO === "1";
+export const SHOW_DEMO = process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_DEMO === "1";
 export const CONFIG: typeof BASE = SHOW_DEMO ? { ...BASE, ...DEMO } : BASE;
+
+/** URL pública sin barra final (solo en servidor/build: process.env.URL lo pone Netlify al compilar). */
+export const SITE = (CONFIG.siteUrl || process.env.URL || "http://localhost:3000").replace(/\/$/, "");
+
+/** Precio más bajo configurado, para mostrar "desde X €". */
+export const minPrice = () => {
+  const ps = Object.values(CONFIG.rooms).map((r) => r.price).filter(Boolean);
+  return ps.sort((a, b) => parseFloat(a) - parseFloat(b))[0] || "";
+};
 
 export type RoomId = keyof typeof CONFIG.rooms;
