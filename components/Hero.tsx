@@ -50,9 +50,9 @@ export default function Hero() {
                         onClick={() => go(k)} className={k === i ? "on" : k < i ? "done" : ""}><i /></button>
                     ))}
                   </div>
-                  <button type="button" className="hero-pp" aria-label={paused ? t("play") : t("pause")} onClick={() => { setPaused(!paused); if (paused) go(i); }}>
+                  {/* <button type="button" className="hero-pp" aria-label={paused ? t("play") : t("pause")} onClick={() => { setPaused(!paused); if (paused) go(i); }}>
                     <svg viewBox="0 0 14 14" aria-hidden="true">{paused ? <path d="M4 2.5v9l7-4.5z" /> : <path d="M4.5 2.5v9M9.5 2.5v9" />}</svg>
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
