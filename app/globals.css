@@ -182,7 +182,7 @@ form .fwrap{display:flex;flex-direction:column;gap:6px}
 .step2 svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6}
 .bkbar .gf{padding:14px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
 #bk .gf .step2{background:var(--plaster);border:1px solid var(--line);padding:8px 8px 8px 14px}
-.pop{position:absolute;z-index:40;top:calc(100% + 10px);left:0;background:var(--wall);border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(20,18,16,.45);padding:22px;width:min(660px,calc(100vw - 32px));animation:popIn .35s var(--ease)}
+.pop{position:absolute;z-index:40;top:calc(100% + 10px);left:0;right:0;background:var(--wall);border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(20,18,16,.45);padding:22px;animation:popIn .35s var(--ease)}
 @keyframes popIn{from{opacity:0;transform:translateY(-8px) scale(.98)}}
 .pop,.cs-list{transform-origin:top left}
 .cal-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
@@ -194,7 +194,9 @@ form .fwrap{display:flex;flex-direction:column;gap:6px}
 .cal-nav button:disabled{opacity:.3;cursor:default}
 .cal-nav svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5}
 .cal-months{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-@media (max-width:700px){.cal-months{grid-template-columns:1fr}.pop{padding:16px}}
+.cal-months.one{grid-template-columns:1fr}
+.cal-months.one .cal-m{width:100%;max-width:380px;margin-inline:auto}
+@media (max-width:700px){.pop{padding:16px}}
 .cal-m h4{margin:0 0 10px;font-family:var(--f-display);font-weight:400;font-size:17px}
 .cal-g{display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px}
 .cal-g .wd{font-size:11px;letter-spacing:.12em;color:var(--muted);text-align:center;padding:6px 0;font-family:var(--f-display)}

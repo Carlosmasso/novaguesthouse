@@ -22,7 +22,12 @@ export default function DateRange({ value, onChange }: { value: [string, string]
   const box = useRef<HTMLDivElement>(null);
   const T0 = today();
 
-  useEffect(() => { const r = () => setTwo(innerWidth > 700); r(); addEventListener("resize", r); return () => removeEventListener("resize", r); }, []);
+  // Dos meses solo si caben en el ancho real del selector (el popup ocupa lo mismo que los dos campos)
+  useEffect(() => {
+    const el = box.current; if (!el) return;
+    const ro = new ResizeObserver(([e]) => setTwo(e.contentRect.width >= 480));
+    ro.observe(el); return () => ro.disconnect();
+  }, []);
 
   const close = (d = draft) => {
     let [a, b] = d;
@@ -81,7 +86,7 @@ export default function DateRange({ value, onChange }: { value: [string, string]
               <button type="button" aria-label="›" onClick={() => setView(new Date(view.getFullYear(), view.getMonth() + 1, 1, 12))}><Chev dir="r" /></button>
             </div>
           </div>
-          <div className="cal-months">
+          <div className={two ? "cal-months" : "cal-months one"}>
             {months.map((m) => {
               const first = (m.getDay() + 6) % 7, days = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
               return (

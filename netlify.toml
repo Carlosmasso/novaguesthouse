@@ -1,3 +1,9 @@
 [build]
   command = "npm run build"
   publish = "out"
+
+# Datos ficticios (lib/demo.ts) solo en deploy previews y ramas, nunca en producción
+[context.deploy-preview.environment]
+  NEXT_PUBLIC_DEMO = "1"
+[context.branch-deploy.environment]
+  NEXT_PUBLIC_DEMO = "1"
