@@ -1,6 +1,6 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createElement, useEffect, useRef, useState, type ReactNode } from "react";
+import { createElement, Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { IC } from "@/lib/data";
 import { prefersReduced } from "@/lib/utils";
 
@@ -24,7 +24,7 @@ export function SplitH2({ text }: { text: string }) {
   return (
     <h2>
       {String(text).split(" ").map((w, i) => (
-        <span className="w" key={i + w}><span style={{ transitionDelay: `${i * 60}ms` }}>{w}</span>{" "}</span>
+        <Fragment key={i + w}><span className="w"><span style={{ transitionDelay: `${i * 60}ms` }}>{w}</span></span>{" "}</Fragment>
       ))}
     </h2>
   );
