@@ -2,7 +2,9 @@
    DATOS DEL ALOJAMIENTO — rellena aquí y toda la web se actualiza.
    Lo que se deje vacío ("") se muestra resaltado como pendiente.
    ===================================================================== */
-export const CONFIG = {
+import { DEMO } from "./demo";
+
+const BASE = {
   address:"P.º de Castilla, 41 (posterior), frente a P.º de Extremadura, 3 · 28921 Alcorcón, Madrid",
   mapsQuery:"Nova Guest House Central, Paseo de Castilla 41, 28921 Alcorcón, Madrid",
   phone:"624 86 75 40",  // atención 24 h, 365 días
@@ -31,5 +33,10 @@ export const CONFIG = {
     parking:["",""], pets:["",""], cancel:["",""], luggage:["",""], cleaning:["",""]
   }
 };
+
+// En desarrollo (o con NEXT_PUBLIC_DEMO=1) se rellenan los huecos con datos ficticios de lib/demo.ts.
+// La build de producción usa solo BASE: lo pendiente sigue resaltado.
+const SHOW_DEMO = process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_DEMO === "1";
+export const CONFIG: typeof BASE = SHOW_DEMO ? { ...BASE, ...DEMO } : BASE;
 
 export type RoomId = keyof typeof CONFIG.rooms;
