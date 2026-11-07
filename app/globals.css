@@ -33,6 +33,7 @@
   --col-gap:clamp(40px,6vw,88px);  /* entre columnas */
   --row:24px;                    /* relleno de las filas con línea */
   --ic:28px; --ic-sm:22px;       /* iconos */
+  --radius:clamp(12px,1.2vw,16px); /* fotos del carrusel */
   --ease:cubic-bezier(.22,.7,.2,1);
   --out:cubic-bezier(.16,1,.3,1);
   --glow:radial-gradient(90% 520px at 50% 0,rgba(196,160,100,.16),transparent 70%); /* luz de pared, como la de los cabeceros */
@@ -172,12 +173,16 @@ body.menu-open .fab{opacity:0;pointer-events:none}
 /* carrusel: las fotos viajan en profundidad */
 .cr{--w:min(58vw,92vh,900px);position:relative;overflow:hidden;padding-block:12px 0;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .cr.drag{cursor:grabbing}
-.cr-stage{position:relative;height:calc(var(--w)*.8);margin-bottom:clamp(40px,4vw,56px)}
-.cr-slide{position:absolute;top:0;left:50%;width:var(--w);height:100%;margin-left:calc(var(--w)/-2);padding:0;border:0;background:var(--night-2);overflow:hidden;cursor:pointer;box-shadow:0 44px 70px -36px rgba(0,0,0,.9);transition:transform .95s var(--out),filter .95s var(--out),opacity .6s}
+.cr-stage{position:relative;height:calc(var(--w)*.8);margin-bottom:clamp(24px,2.5vw,36px)}
+.cr-slide{position:absolute;top:0;left:50%;width:var(--w);height:100%;margin-left:calc(var(--w)/-2);padding:0;border:0;background:var(--night-2);overflow:hidden;isolation:isolate;border-radius:var(--radius);cursor:pointer;box-shadow:0 44px 70px -36px rgba(0,0,0,.9);transition:transform .95s var(--out),filter .95s var(--out),opacity .6s}
 .cr.drag .cr-slide{transition:none;cursor:grabbing}
 .cr-slide.on{cursor:zoom-in}
 .cr-slide:focus-visible{outline-offset:-5px}
-.cr-slide img{width:100%;height:100%;object-fit:cover;pointer-events:none;transition:transform 1.4s var(--out)}
+/* zoom muy lento en la foto activa; la imagen sobra un 6 % por cada lado para el parallax */
+.cr-kb{position:absolute;inset:0;display:block;transition:transform 1.2s var(--out)}
+.cr-slide.on .cr-kb{transform:scale(1.05);transition:transform 8s linear}
+.cr-slide img{position:absolute;top:0;left:-6%;width:112%;max-width:none;height:100%;object-fit:cover;pointer-events:none;transition:transform .95s var(--out)}
+.cr.drag .cr-slide img{transition:none}
 .cr-arrow{position:absolute;z-index:20;top:50%;width:52px;height:52px;margin-top:-26px;padding:0;display:grid;place-items:center;background:var(--white);color:var(--ink);border:0;border-radius:50%;cursor:pointer;box-shadow:0 10px 24px -10px rgba(20,15,10,.6);transition:transform .3s var(--out)}
 .cr-arrow:active{transform:scale(.94)}
 .cr-arrow.l{left:calc(50% - var(--w)/2 - 26px)}
@@ -187,8 +192,8 @@ body.menu-open .fab{opacity:0;pointer-events:none}
 .segs button{width:clamp(28px,4vw,52px);height:44px;padding:0;background:none;border:0;cursor:pointer}
 .segs i{position:relative;display:block;height:2px;overflow:hidden;background:rgba(255,255,255,.22);transition:background .3s}
 .segs i::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left}
-.segs .on i::after{transform:scaleX(1)}
-.segs .run i::after{animation:segFill var(--ms) linear both}
+.segs .on i::after{transform:scaleX(1);animation:segFill var(--ms) linear both}
+.segs.paused .on i::after,body.lb-open .segs .on i::after{animation-play-state:paused}
 @keyframes segFill{from{transform:scaleX(0)}}
 .rooms-cta{margin-top:clamp(28px,3vw,40px);padding-inline:var(--gut)}
 /* panel que cruza del oscuro al claro */
@@ -197,8 +202,7 @@ body.menu-open .fab{opacity:0;pointer-events:none}
 .perks li{display:flex;flex-direction:column;align-items:center;gap:14px;padding:0 18px;text-align:center;line-height:var(--lh-tight)}
 .perks li+li{border-left:1px solid var(--line)}
 @media (hover:hover){
-  .cr-slide.on:hover img{transform:scale(1.03)}
-  .cr-slide:not(.on):hover{filter:brightness(.72)!important}
+  .cr-slide:not(.on):hover{filter:brightness(.85)!important}
   .cr-arrow:hover{transform:scale(1.08)}
   .segs button:hover i{background:rgba(255,255,255,.5)}
 }
@@ -355,7 +359,7 @@ g.on .pt{fill:var(--gold)}
 @keyframes rpIn{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(-120px)}}
 .rp{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:var(--stack);height:100%;overflow:hidden;padding:clamp(24px,3vw,40px);background:var(--night-2);color:var(--white);text-decoration:none}
 .rp:focus-visible{outline-offset:-6px}
-.rp img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform 1.8s var(--out)}
+.rp img{position:absolute;top:0;left:50%;z-index:-2;width:100%;max-width:none;height:100%;object-fit:cover;transform:translateX(-50%)}
 .rp::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,15,10,.04) 28%,rgba(20,15,10,.62) 62%,rgba(20,15,10,.92) 100%);transition:opacity .6s}
 .rp-logo{display:flex;align-items:center;height:56px}
 .lg{display:inline-flex;align-items:center;gap:10px;font-weight:500;font-size:34px;letter-spacing:-.03em}
@@ -370,12 +374,10 @@ g.on .pt{fill:var(--gold)}
 a.rp:is(.on,:focus-visible) .btn::before{transform:scaleX(1)}
 a.rp:is(.on,:focus-visible) .ar{transform:translateX(4px)}
 a.rp:is(.on,:focus-visible) .btn.ghost{border-color:var(--gold);color:var(--night)}
-a.rp:is(.on,:focus-visible) img{transform:scale(1.05)}
 @media (hover:hover){
   a.rp:hover .btn::before{transform:scaleX(1)}
   a.rp:hover .ar{transform:translateX(4px)}
   a.rp:hover .btn.ghost{border-color:var(--gold);color:var(--night)}
-  a.rp:hover img{transform:scale(1.05)}
 }
 /* solo un botón dorado a la vez: WhatsApp, la vía directa, mientras ningún otro panel esté activo */
 .rps li:first-child .btn{border-color:var(--gold);color:var(--night)}
@@ -391,6 +393,8 @@ a.rp{transition:transform .2s var(--out)}
 a.rp:active{transform:scale(.985)}
 /* al señalar un panel, se abre y los otros le dejan sitio (solo si hay anchura para ello) */
 @media (hover:hover) and (min-width:1240px){
+  /* la foto mide siempre lo que el panel abierto: al abrirse enseña más a los lados, sin ampliarse */
+  .rp img{width:max(100%,calc((min(100vw,1680px) - 48px)*.445))}
   .rps:has(a.rp:hover) li{flex-grow:1}
   .rps li:has(a.rp:hover){flex-grow:1.6}
 }
