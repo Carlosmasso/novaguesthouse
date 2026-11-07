@@ -22,9 +22,9 @@ npm run build      # genera la carpeta /out (web estática)
 
 | Qué | Archivo |
 | --- | --- |
-| Datos del negocio: dirección, teléfono, WhatsApp, email, registro, precios, m², reseñas, lugares cercanos, respuestas FAQ | `lib/config.ts` |
+| Datos del negocio: contacto, enlaces de reserva, tiempos de transporte, normas | `lib/config.ts` |
 | Textos en español e inglés | `lib/dict.ts` |
-| Habitaciones (fotos, equipamiento), galería e iconos | `lib/data.ts` |
+| Qué foto sale en cada sección e iconos | `lib/data.ts` |
 | Fotos | `public/img/` |
 | Estilos (colores, tipografía, layout) | `app/globals.css` (tokens en `:root`) |
 
@@ -34,18 +34,19 @@ Todo lo que esté vacío en `lib/config.ts` aparece en la web resaltado como **[
 
 ```
 app/
-  layout.tsx                 fuentes, metadatos, proveedores (idioma, visor de fotos)
-  page.tsx                   portada
-  habitaciones/[id]/page.tsx ficha de cada habitación (/habitaciones/roble, /habitaciones/lino)
-components/                  Header (menú móvil), Hero, Facts, Gallery, Rooms, Location (Google Maps),
-                             Arrival, Reviews, Faq, Booking (+ DateRange, Select), Closer, Footer,
-                             RoomDetail, Lightbox, ui (Reveal, iconos…)
-lib/                         config, dict (i18n), data, utils, i18n (contexto de idioma)
+  layout.tsx            fuentes, metadatos
+  page.tsx              portada
+  habitaciones/         fotos, equipamiento y normas de la casa
+  ubicacion/            conexiones y tiempos a Madrid
+  reservar/             WhatsApp, Booking y Airbnb
+  en/                   las mismas páginas en inglés
+components/             Header, Hero, RoomsTeaser, LocationTeaser, RoomsPage, LocationPage, Reserve,
+                        BookFab (botón flotante «Reservar ahora»), Footer, Lightbox, Legal, ui
+lib/                    config, dict (i18n), data, meta, utils, i18n (contexto de idioma)
 ```
 
 ## Notas
 
-- Idioma por defecto: español. El selector ES/EN recuerda la elección durante la sesión.
-- La reserva no tiene backend: el formulario prepara el mensaje y lo abre en WhatsApp (`CONFIG.whatsapp`).
-- El enlace «Reservar esta habitación» de cada ficha abre `/?habitacion=<id>#reservar` con la habitación ya elegida.
+- Idioma por defecto: español. El inglés vive en `/en/`.
+- La web no tiene formularios ni backend: las reservas se hacen por WhatsApp, Booking o Airbnb.
 # novaguesthouse

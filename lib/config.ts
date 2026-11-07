@@ -13,42 +13,28 @@ const BASE = {
   phone:"624 86 75 40",  // atención 24 h, 365 días
   whatsapp:"34624867540", // confirmar que este número tiene WhatsApp
   instagram:"https://www.instagram.com/nova.guesthouse/",
-  email:"",              // "hola@novaguesthouse.com"
+  email:"",              // "novaguesthouse@outlook.com"
   registry:"",           // nº de registro turístico
   checkin:"15:00", checkout:"11:00",
   bookingUrl:"",         // enlace a la ficha de Booking.com
-  airbnbUrl:"",          // enlace a la ficha de Airbnb
-  rating:"", ratingSource:"", // "9,4" , "Booking.com · 120 opiniones"
-  rooms:{                // precio por noche (texto) y m²
-    roble:{price:"", size:""},
-    lino:{price:"", size:""}
-  },
-  nearby:[               // [nombre ES, nombre EN, minutos, "a pie"|"en coche"|"en bus"]
-    ["Metro · Línea 12 (MetroSur)","Metro · Line 12 (MetroSur)","",""],
-    ["Cercanías Renfe · C-5","Renfe commuter train · C-5","",""],
-    ["Comercios, cafeterías y restaurantes","Shops, cafés and restaurants","",""],
-    ["Centro de Madrid","Central Madrid","","en coche"]
+  airbnbUrl:"https://www.airbnb.es/rooms/1810141125220115961", // enlace a la ficha de Airbnb
+  metroWalk:"",          // minutos reales a pie hasta Alcorcón Central
+  times:[                // tiempos reales desde la casa: {icon, place [ES, EN], min, how [ES, EN]}
+    {icon:"city",place:["Centro de Madrid (Sol)","Central Madrid (Sol)"],min:"",how:["en transporte público","by public transport"]},
+    {icon:"train",place:["Estación de Atocha","Atocha Station"],min:"",how:["en Cercanías","by commuter train"]},
+    {icon:"train",place:["Estación de Chamartín","Chamartín Station"],min:"",how:["en Cercanías","by commuter train"]},
+    {icon:"plane",place:["Aeropuerto Madrid-Barajas","Madrid-Barajas Airport"],min:"",how:["en coche","by car"]}
   ],
-  reviews:[              // solo reseñas reales: {text, name, origin, date}
-    {text:"",name:"",origin:"",date:""},{text:"",name:"",origin:"",date:""},{text:"",name:"",origin:"",date:""}
-  ],
-  faq:{                  // respuestas pendientes (ES / EN)
-    parking:["",""], pets:["",""], cancel:["",""], luggage:["",""], cleaning:["",""]
-  }
+  quietHours:["",""],    // horario de silencio [ES, EN], p. ej. ["De 22:00 a 8:00","10 pm to 8 am"]
+  visitors:["",""]       // política de visitantes [ES, EN]
 };
 
-// En desarrollo (o con NEXT_PUBLIC_DEMO=1) se rellenan los huecos con datos ficticios de lib/demo.ts.
-// La build de producción usa solo BASE: lo pendiente sigue resaltado.
+// En desarrollo (o con NEXT_PUBLIC_DEMO=1) se rellenan SOLO los huecos con datos ficticios de lib/demo.ts:
+// un dato real nunca se sustituye. La build de producción usa solo BASE: lo pendiente sigue resaltado.
 export const SHOW_DEMO = process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_DEMO === "1";
-export const CONFIG: typeof BASE = SHOW_DEMO ? { ...BASE, ...DEMO } : BASE;
+const filled = (v: unknown) => (Array.isArray(v) ? v.every((x) => x.min) : !!v);
+const gaps = Object.fromEntries(Object.entries(DEMO).filter(([k]) => !filled(BASE[k as keyof typeof BASE])));
+export const CONFIG: typeof BASE = SHOW_DEMO ? { ...BASE, ...gaps } : BASE;
 
 /** URL pública sin barra final (solo en servidor/build: process.env.URL lo pone Netlify al compilar). */
 export const SITE = (CONFIG.siteUrl || process.env.URL || "http://localhost:3000").replace(/\/$/, "");
-
-/** Precio más bajo configurado, para mostrar "desde X €". */
-export const minPrice = () => {
-  const ps = Object.values(CONFIG.rooms).map((r) => r.price).filter(Boolean);
-  return ps.sort((a, b) => parseFloat(a) - parseFloat(b))[0] || "";
-};
-
-export type RoomId = keyof typeof CONFIG.rooms;

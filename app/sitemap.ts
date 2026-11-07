@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/config";
-import { rooms } from "@/lib/data";
 
 export const dynamic = "force-static";
 
@@ -12,7 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
   return [
     ...pair("/", 1),
-    ...rooms.flatMap((r) => pair(`/habitaciones/${r.id}/`, 0.8)),
+    ...pair("/habitaciones/", 0.9),
+    ...pair("/ubicacion/", 0.8),
+    ...pair("/reservar/", 0.8),
     ...["/aviso-legal/", "/privacidad/", "/cookies/"].map((p) => ({ url: SITE + p, priority: 0.2 })),
   ];
 }

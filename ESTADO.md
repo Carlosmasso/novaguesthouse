@@ -1,8 +1,10 @@
 # Nova Guest House Central: estado de la web
 
-Actualizado el 2 de noviembre de 2026.
+Actualizado el 5 de noviembre de 2026.
 
 Este documento resume lo que ya está hecho en la web y lo que falta para publicarla con datos reales. Las tareas pendientes están en orden: primero lo que impide publicar.
+
+La referencia del diseño es la [revisión del cliente](https://docs.google.com/document/d/1guAnKY1QC8Uo2H1K-Ia-9j8wBWWUehJx9Rc4ajFOaQI/edit) y su mensaje posterior. Donde se contradicen, manda el mensaje: web sencilla, sin enseñar todas las habitaciones, con botón flotante «Reservar ahora».
 
 ---
 
@@ -16,66 +18,54 @@ Obligatorios para publicar:
 
 | Campo | Qué poner | Dónde se ve |
 |---|---|---|
-| `owner` | Nombre o razón social del titular | Aviso legal, privacidad |
-| `nif` | NIF o CIF del titular | Aviso legal, privacidad |
+| `owner` / `nif` | Titular y NIF o CIF | Aviso legal, privacidad |
 | `registry` | Nº de registro turístico de la Comunidad de Madrid | Pie de página, aviso legal |
-| `email` | Email de contacto | Pie de página, textos legales |
-| `siteUrl` | Dominio definitivo, p. ej. `https://novaguesthouse.com` | Google, sitemap, imagen al compartir |
-| `rooms.roble.price` / `rooms.lino.price` | Precio por noche, p. ej. `"62 €"` | Tarjetas, fichas, barra de reserva |
-| `rooms.roble.size` / `rooms.lino.size` | Metros cuadrados, p. ej. `"14"` | Fichas de habitación |
+| `email` | Email de contacto | Pie de página, reserva, textos legales |
+| `siteUrl` | Dominio definitivo | Google, sitemap, imagen al compartir |
+| `bookingUrl` | Enlace a la ficha de Booking.com (el de Airbnb ya está puesto) | Página de reserva |
+| `metroWalk` | Minutos reales a pie hasta Alcorcón Central | Ubicación |
+| `times[].min` | Tiempos reales a Sol, Atocha, Chamartín y aeropuerto | Ubicación |
+| `quietHours` / `visitors` | Horario de silencio y política de visitantes | Habitaciones |
 
-Recomendados (la web funciona sin ellos, pero se ven huecos):
+### 2. Por confirmar con el cliente
 
-| Campo | Qué poner |
-|---|---|
-| `bookingUrl` / `airbnbUrl` | Enlace a la ficha pública de cada plataforma |
-| `rating` / `ratingSource` | Puntuación real y fuente, p. ej. `"9,4"` y `"Booking.com · 120 opiniones"` |
-| `reviews` | Tres reseñas **reales**, copiadas de Booking o Airbnb, con nombre, país y fecha |
-| `nearby` | Minutos reales a metro, Cercanías, comercios y centro de Madrid |
-| `faq` | Respuestas sobre aparcamiento, mascotas, cancelación, equipaje y limpieza (en español e inglés) |
-| `whatsapp` | Confirmar que el número `624 86 75 40` tiene WhatsApp |
+Hay datos que salen de sus maquetas o que no coinciden con lo que teníamos:
 
-Las reseñas y la puntuación tienen que ser reales. Publicar reseñas inventadas para un negocio real es ilegal en España y la UE. Los datos de ejemplo de `lib/demo.ts` nunca salen en la web pública (ver «Datos de demostración» más abajo).
+| Dato | En la web | En las maquetas | Qué hacer |
+|---|---|---|---|
+| Teléfono y WhatsApp | 624 86 75 40 | 620 544 320 y 611 234 567 | Confirmar cuál es real y si tiene WhatsApp |
+| Dirección | P.º de Castilla, 41 (posterior), frente a P.º de Extremadura, 3 | Paseo de Extremadura, 3 posterior | Confirmar |
+| Email | Pendiente | novaguesthouse@outlook.com y hola@novahouse.es | Confirmar |
+| Nº de habitaciones | Cuatro | Cuatro (la web anterior decía dos) | Confirmar |
+| Equipamiento | Lista de su maqueta | Secador de pelo solo aparece ahí | Confirmar |
+| Autobuses y accesos | Líneas a Madrid; A-5, M-40 y M-50 | Igual | Confirmar |
 
-### 2. Calendarios de disponibilidad
+**Tiempos de sus maquetas.** Se ven en las vistas previas de `lib/demo.ts`, nunca en la web pública:
 
-La web marca como ocupadas las noches que ya están reservadas en Booking y Airbnb. Para ello necesita el enlace iCal de cada habitación en cada plataforma.
+- Los 20 minutos a Sol parecen optimistas. La maqueta decía «en Metro», pero la L12 no llega al centro, así que la web dice «en transporte público».
+- La maqueta decía que la C-5 conecta directa con Sol y Chamartín. Solo está confirmada Atocha, así que la web solo dice Atocha.
 
-**Cómo conseguir los enlaces** (los nombres de los menús pueden variar un poco):
+### 3. Material que falta
 
-- **Booking.com (extranet):** Tarifas y disponibilidad → Sincronizar calendarios → elegir la habitación → Exportar calendario → copiar el enlace `.ics`.
-- **Airbnb:** Calendario → elegir el anuncio → Disponibilidad → Sincronizar calendarios → Exportar calendario → copiar el enlace.
+- **Fotos definitivas.** Las actuales son provisionales: el cliente enviará las nuevas al terminar las obras. Convienen fotos horizontales, porque todas las actuales son verticales y pierden nitidez a pantalla completa.
+- **Foto real de la zona o de Alcorcón Central.** La de la maqueta está generada por ordenador, así que no se usa. Mientras tanto sale la fachada.
+- **Logotipo.** Las maquetas muestran un monograma «NH» y el cartel real dice «NOVAGUESTHOUSE». Sin archivo de logo, la web usa el nombre en texto.
+- **Vídeo del carrusel.** El documento lo menciona, pero no hay vídeo. Por ahora el carrusel es de fotos.
 
-**Dónde ponerlos:** en Netlify, Site configuration → Environment variables. Se crean dos variables y, si hay enlace de las dos plataformas, se separan con una coma:
-
-```
-ICAL_ROBLE = https://admin.booking.com/...ics, https://www.airbnb.es/calendar/ical/...ics
-ICAL_LINO  = https://admin.booking.com/...ics, https://www.airbnb.es/calendar/ical/...ics
-```
-
-Después hay que volver a desplegar la web.
-
-> Los enlaces llevan un código privado: no deben ponerse en el código ni compartirse.
-
-**Importante:** la web *lee* los calendarios, pero no los modifica. Cuando entra una reserva directa por WhatsApp hay que bloquear esas noches a mano en Booking y Airbnb para evitar dobles reservas. También conviene que Booking y Airbnb se importen el calendario el uno al otro si no lo hacen ya.
-
-La disponibilidad se actualiza cada 15 minutos aproximadamente.
-
-### 3. Revisión legal
+### 4. Revisión legal
 
 Los textos de `/aviso-legal`, `/privacidad` y `/cookies` son una base correcta, pero deben revisarlos la gestoría o un abogado antes de publicar. Puntos concretos que confirmar:
 
-- **Titular:** si la web la explota una persona física o una sociedad (cambia los datos del aviso legal).
-- **Plazos de conservación:** la privacidad indica un año para consultas que no acaban en reserva y hasta tres años para el registro de viajeros. Confirmar que coincide con lo que hacéis.
-- **Proveedores:** se citan WhatsApp (Meta), Netlify, Booking.com y Airbnb. Añadir cualquier otro que trate datos de huéspedes (gestoría, programa de check-in, cerraduras digitales…).
-- **Política de cancelación:** la FAQ de ejemplo dice «gratis hasta 48 h antes» para reservas directas. Poner la real.
-- **Registro turístico:** confirmar el formato exacto del número que exige la Comunidad de Madrid.
+- **Titular:** si la web la explota una persona física o una sociedad.
+- **Plazos de conservación:** un año para consultas que no acaban en reserva y hasta tres años para el registro de viajeros.
+- **Proveedores:** se citan WhatsApp (Meta), Netlify, Booking.com y Airbnb. Añadir cualquier otro que trate datos de huéspedes.
+- **Registro turístico:** el formato exacto del número que exige la Comunidad de Madrid.
 
 Los textos legales solo están en español, que es la versión legalmente válida. Desde la versión inglesa se enlaza a ellos indicando «(ES)».
 
-### 4. Publicación
+### 5. Publicación
 
-1. Subir los cambios al repositorio. Ahora mismo no hay nada confirmado (commit) desde el primer commit.
+1. Subir los cambios al repositorio.
 2. En Netlify, comprobar que la variable `NEXT_PUBLIC_DEMO` **no** existe en producción.
 3. Desplegar y revisar la web publicada.
 4. Dar de alta el dominio en Google Search Console y enviar `https://<dominio>/sitemap.xml`.
@@ -85,46 +75,29 @@ Los textos legales solo están en español, que es la versión legalmente válid
 
 ## Implementado
 
-### Reservas
-
-- **Barra de reserva bajo la portada:** fechas de llegada y salida, precio «desde» y botón «Ver disponibilidad», que baja al formulario con las fechas ya puestas. Si la habitación elegida está ocupada esas noches, cambia sola a una que esté libre.
-- **Disponibilidad en el calendario:** las noches ocupadas salen rayadas y no se pueden elegir, y no se puede reservar una estancia que cruce una noche ocupada. La de salida sí puede ser el día en que empieza otra reserva.
-- **Aviso de habitación ocupada:** si se cambia de habitación con unas fechas que no están libres, el formulario lo avisa y ofrece cambiar a la otra.
-- **Envío directo a WhatsApp:** el botón «Pedir por WhatsApp» abre WhatsApp con el mensaje ya escrito. Debajo queda el texto con opción de copiarlo, por si no se abre.
-- **Calendario más compacto:** ya no se sale del formulario ni provoca scroll horizontal. Muestra uno o dos meses según el espacio disponible.
-- **Enlaces a Booking y Airbnb:** ocupan todo el ancho de la columna.
-
-### Idiomas y SEO
-
-- **Versión inglesa con URL propia:** `/en/` y `/en/habitaciones/…`. Antes el inglés solo existía en el navegador y Google no lo veía. Cada página indica a Google cuál es su equivalente en el otro idioma (`hreflang`).
-- **Datos estructurados para Google:** tipo de alojamiento, dirección, teléfono, horarios de entrada y salida, rango de precios y servicios. La puntuación solo se incluye cuando es real.
-- **`sitemap.xml` y `robots.txt`**, generados automáticamente.
-- **Favicon.**
-- **Imagen y descripción al compartir** cada habitación por WhatsApp o redes, en los dos idiomas.
-
-### Legal y privacidad
-
-- **Páginas de aviso legal, privacidad y cookies**, enlazadas desde el pie de página. Los datos del titular se rellenan desde `lib/config.ts`.
-- **Fuentes tipográficas servidas desde la propia web:** el navegador del visitante ya no se conecta a Google al cargarla.
-- **Mapa de Google bajo demanda:** solo se carga cuando el visitante pulsa «Ver mapa interactivo». Por eso la web no instala ninguna cookie y no necesita banner de cookies.
-
-### Detalles
-
-- **Carrusel de la portada:** tiene botón de pausa, y cada foto se anuncia para lectores de pantalla («Foto 2 de 4»).
-- **Títulos de sección:** ya no salen con las palabras pegadas («Cuéntanostusfechas»).
-- **Título de la sección de reserva:** alineado a la izquierda.
+- **Estilo:** titulares en serif (Libre Caslon Display), resto en Figtree, tonos cálidos con dorado como único acento y mucho aire entre secciones. Solo modo claro.
+- **Portada:** foto a pantalla completa con velo ligero, carrusel de habitaciones con cuatro iconos y bloque de ubicación.
+- **`/habitaciones/`:** una sola «Habitación Doble» con las mejores fotos, equipamiento con iconos y normas de la casa.
+- **`/ubicacion/`:** conexiones (Metro, Cercanías, autobuses, coche), mapa animado con los tiempos a Madrid y servicios cercanos. El mapa sitúa cada destino a escala; sus líneas no son el trazado de una línea de transporte.
+- **`/reservar/`:** tres grandes paneles de foto (WhatsApp, destacado; Booking; Airbnb), más contacto de ayuda.
+- **Botón flotante «Reservar ahora»:** en todas las páginas salvo la de reserva.
+- **Móvil:** menú desplegable, carrusel y fotos que se deslizan con el dedo y botones a tamaño de dedo.
+- **Movimiento:** carrusel con profundidad que se arrastra, fotos que se abren al llegar, parallax, y cabecera que se aparta al bajar. Con «reducir movimiento» activado en el dispositivo, todo queda quieto.
+- **Visor de fotos:** se abre desde la propia foto; admite teclado, deslizar y arrastrar hacia abajo para cerrar.
+- **Página 404** propia en español e inglés.
+- **Idiomas y SEO:** versión inglesa bajo `/en/` con `hreflang`, datos estructurados, `sitemap.xml` y `robots.txt`.
+- **Privacidad:** sin cookies ni conexiones a terceros al cargar, así que no hace falta banner de cookies.
 
 ### Datos de demostración
 
-Para ver la web «llena» mientras faltan los datos reales, `lib/demo.ts` contiene precios, reseñas, puntuación, respuestas de la FAQ, ocupación del calendario y datos de titular **ficticios**.
+`lib/demo.ts` contiene datos **de ejemplo** para ver la web completa mientras faltan los reales.
 
-- Se muestran en desarrollo (`npm run dev`) y en los *deploy previews* y ramas de Netlify, para enseñar la web al cliente.
+- Se muestran en desarrollo (`npm run dev`) y en los *deploy previews* y ramas de Netlify.
 - **No** se muestran en la web pública: ahí los huecos salen resaltados como pendientes.
 - En cuanto un dato se rellena en `lib/config.ts`, ese dato real sustituye al de ejemplo.
 
 ---
 
-## Fuera de alcance por ahora
+## Retirado
 
-- **Imágenes en varios tamaños para móvil:** las fotos ya pesan poco (unos 130 KB cada una), así que la mejora sería pequeña.
-- **Idioma de la página `/en/`:** el atributo que lo indica se corrige al cargar la página, no en el HTML inicial. Google se guía sobre todo por `hreflang`, así que no debería afectar al posicionamiento.
+Sigue en el historial de git (commit `07cfe48`): fichas individuales de habitación, formulario con calendario y disponibilidad por iCal, precios, opiniones, preguntas frecuentes, pasos de llegada y mapa incrustado.

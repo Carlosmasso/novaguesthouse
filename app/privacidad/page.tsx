@@ -11,7 +11,7 @@ export default function Page() {
 
       <h2>Qué datos tratamos y para qué</h2>
       <ul>
-        <li><b>Solicitudes de reserva y consultas.</b> El formulario de la web no envía ni guarda datos en nuestros servidores: prepara un mensaje que tú decides enviar por WhatsApp. Al recibirlo tratamos tu nombre, teléfono, fechas y número de huéspedes para gestionar tu solicitud y, en su caso, tu estancia.</li>
+        <li><b>Solicitudes de reserva y consultas.</b> La web no tiene formularios ni guarda datos en nuestros servidores: el botón de WhatsApp abre un mensaje que tú decides enviar. Al recibirlo tratamos tu nombre, teléfono, fechas y número de huéspedes para gestionar tu solicitud y, en su caso, tu estancia.</li>
         <li><b>Registro de viajeros.</b> Si te alojas, la normativa nos obliga a recoger los datos de tu documento de identidad y comunicarlos a las autoridades (Real Decreto 933/2021).</li>
         <li><b>Contacto por teléfono, WhatsApp o email.</b> Usamos los datos que nos facilites solo para responderte.</li>
       </ul>
