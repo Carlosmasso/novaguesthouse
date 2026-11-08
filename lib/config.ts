@@ -18,12 +18,12 @@ const BASE = {
   checkin:"15:00", checkout:"11:00",
   bookingUrl:"",         // enlace a la ficha de Booking.com
   airbnbUrl:"https://www.airbnb.es/rooms/1810141125220115961", // enlace a la ficha de Airbnb
-  metroWalk:"",          // minutos reales a pie hasta Alcorcón Central
+  metroWalk:"5",        // minutos reales a pie hasta Alcorcón Central
   times:[                // tiempos reales desde la casa: {icon, place [ES, EN], min, how [ES, EN]}
-    {icon:"city",place:["Centro de Madrid (Sol)","Central Madrid (Sol)"],min:"",how:["en transporte público","by public transport"]},
-    {icon:"train",place:["Estación de Atocha","Atocha Station"],min:"",how:["en Cercanías","by commuter train"]},
-    {icon:"train",place:["Estación de Chamartín","Chamartín Station"],min:"",how:["en Cercanías","by commuter train"]},
-    {icon:"plane",place:["Aeropuerto Madrid-Barajas","Madrid-Barajas Airport"],min:"",how:["en coche","by car"]}
+    {icon:"city",place:["Centro de Madrid (Sol)","Central Madrid (Sol)"],min:"35",how:["en transporte público","by public transport"]},
+    {icon:"train",place:["Estación de Atocha","Atocha Station"],min:"30",how:["en Cercanías","by commuter train"]},
+    {icon:"train",place:["Estación de Chamartín","Chamartín Station"],min:"45",how:["en Cercanías","by commuter train"]},
+    {icon:"plane",place:["Aeropuerto Madrid-Barajas","Madrid-Barajas Airport"],min:"30",how:["en coche","by car"]}
   ],
   quietHours:["",""],    // horario de silencio [ES, EN], p. ej. ["De 22:00 a 8:00","10 pm to 8 am"]
   visitors:["",""]       // política de visitantes [ES, EN]

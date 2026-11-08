@@ -11,9 +11,9 @@ export const DEMO = {
   airbnbUrl:"https://www.airbnb.es/",
   metroWalk:"3",
   times:[
-    {icon:"city",place:["Centro de Madrid (Sol)","Central Madrid (Sol)"],min:"20",how:["en transporte público","by public transport"]},
-    {icon:"train",place:["Estación de Atocha","Atocha Station"],min:"25",how:["en Cercanías","by commuter train"]},
+    {icon:"city",place:["Centro de Madrid (Sol)","Central Madrid (Sol)"],min:"35",how:["en transporte público","by public transport"]},
+    {icon:"train",place:["Estación de Atocha","Atocha Station"],min:"30",how:["en Cercanías","by commuter train"]},
     {icon:"train",place:["Estación de Chamartín","Chamartín Station"],min:"30",how:["en Cercanías","by commuter train"]},
-    {icon:"plane",place:["Aeropuerto Madrid-Barajas","Madrid-Barajas Airport"],min:"40",how:["en coche","by car"]}
+    {icon:"plane",place:["Aeropuerto Madrid-Barajas","Madrid-Barajas Airport"],min:"30",how:["en coche","by car"]}
   ]
 };

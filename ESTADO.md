@@ -23,8 +23,6 @@ Obligatorios para publicar:
 | `email` | Email de contacto | Pie de página, reserva, textos legales |
 | `siteUrl` | Dominio definitivo | Google, sitemap, imagen al compartir |
 | `bookingUrl` | Enlace a la ficha de Booking.com (el de Airbnb ya está puesto) | Página de reserva |
-| `metroWalk` | Minutos reales a pie hasta Alcorcón Central | Ubicación |
-| `times[].min` | Tiempos reales a Sol, Atocha, Chamartín y aeropuerto | Ubicación |
 | `quietHours` / `visitors` | Horario de silencio y política de visitantes | Habitaciones |
 
 ### 2. Por confirmar con el cliente
@@ -42,7 +40,8 @@ Hay datos que salen de sus maquetas o que no coinciden con lo que teníamos:
 
 **Tiempos de sus maquetas.** Se ven en las vistas previas de `lib/demo.ts`, nunca en la web pública:
 
-- Los 20 minutos a Sol parecen optimistas. La maqueta decía «en Metro», pero la L12 no llega al centro, así que la web dice «en transporte público».
+- La maqueta decía 20 minutos a Sol «en Metro», pero la L12 no llega al centro. La web dice unos 35 minutos «en transporte público», según Google Maps (aproximado).
+- Los tiempos de `lib/config.ts` se calcularon el 8 de noviembre de 2026 desde el portal de P.º de Castilla, 41, con OpenStreetMap (a pie y en coche) y Transitous (transporte público, martes a las 9:00 y a las 16:00). A pie hasta Alcorcón Central: 4-7 min según el acceso. Sol: 33-38 min. Atocha: 28 min. Chamartín: 46-49 min con transbordo en Atocha. Aeropuerto en coche: 27-29 min sin tráfico.
 - La maqueta decía que la C-5 conecta directa con Sol y Chamartín. Solo está confirmada Atocha, así que la web solo dice Atocha.
 
 ### 3. Material que falta
