@@ -146,7 +146,7 @@ body.menu-open .fab{opacity:0;pointer-events:none}
 .hero-bg img,.phero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-bg img{object-position:50% 58%;animation:heroIn 2.2s var(--out) both}
 @keyframes heroIn{from{opacity:0;transform:scale(1.07)}}
-.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,15,10,.34) 0%,rgba(20,15,10,0) 18%,rgba(20,17,14,0) 30%,rgba(20,17,14,.5) 56%,rgba(20,17,14,.8) 76%,var(--night) 100%)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,15,10,.26) 0%,rgba(20,15,10,0) 18%,rgba(20,17,14,0) 34%,rgba(20,17,14,.3) 58%,rgba(20,17,14,.58) 78%,var(--night) 100%)}
 .phero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,15,10,.5) 0%,rgba(20,15,10,.26) 45%,rgba(20,15,10,0) 75%),linear-gradient(180deg,rgba(20,15,10,.3) 0%,rgba(20,15,10,0) 20%)}
 .hero-in{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:var(--stack);padding-bottom:clamp(64px,7vw,104px)}
 .hero-in .eyebrow{animation:fadeUp .8s var(--out) .1s both}
@@ -154,10 +154,10 @@ body.menu-open .fab{opacity:0;pointer-events:none}
 .hero-in h1{max-width:9.2em}
 .phero .eyebrow{color:var(--white)}
 /* sombra ligada al bloque de texto, no a la altura de la foto: el dorado se lee en cualquier pantalla y el resto sigue luminoso */
-.hero-in::before{content:"";position:absolute;z-index:-1;top:-90px;bottom:0;left:50%;width:100vw;transform:translateX(-50%);pointer-events:none;background:linear-gradient(90deg,rgba(20,17,14,.7) 0%,rgba(20,17,14,.7) 36%,rgba(20,17,14,0) 78%);-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 90px);mask-image:linear-gradient(180deg,transparent 0,#000 90px)}
-@media (max-width:760px){.hero-in::before{background:rgba(20,17,14,.7)}}
+.hero-in::before{content:"";position:absolute;z-index:-1;top:-90px;bottom:0;left:50%;width:100vw;transform:translateX(-50%);pointer-events:none;background:linear-gradient(90deg,rgba(20,17,14,.58) 0%,rgba(20,17,14,.58) 36%,rgba(20,17,14,0) 78%);-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 90px);mask-image:linear-gradient(180deg,transparent 0,#000 90px)}
+@media (max-width:760px){.hero-in::before{background:rgba(20,17,14,.58)}}
 /* detalles dorados: línea junto a la etiqueta y filete bajo el título */
-.hero-in .eyebrow{display:flex;align-items:center;gap:16px;color:var(--gold)}
+.hero-in .eyebrow{display:flex;align-items:center;gap:16px;color:#E0C48F} /* dorado más claro: con la sombra suave, --gold no se lee sobre la almohada */
 .hero-in .eyebrow::before{content:"";flex:none;width:40px;height:1px;background:currentColor;transform-origin:left;animation:ruleIn .9s var(--out) .2s both}
 .hero-rule{width:clamp(72px,8vw,112px);height:1px;background:var(--gold);transform-origin:left;animation:ruleIn 1s var(--out) .45s both}
 @keyframes ruleIn{from{transform:scaleX(0)}}

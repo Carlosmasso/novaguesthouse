@@ -1,6 +1,6 @@
 /** Fotos de cada sección. Provisionales: el cliente enviará las definitivas cuando terminen las obras. */
 export const PHOTO = {
-  hero: "1000252617",
+  hero: "1000252616",
   location: "1000252618",
   roomsHero: "1000252616",
   roomsCta: "1000252626",
