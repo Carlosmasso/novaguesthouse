@@ -20,7 +20,6 @@ Obligatorios para publicar:
 |---|---|---|
 | `owner` / `nif` | Titular y NIF o CIF | Aviso legal, privacidad |
 | `registry` | Nº de registro turístico de la Comunidad de Madrid | Pie de página, aviso legal |
-| `email` | Email de contacto | Pie de página, reserva, textos legales |
 | `siteUrl` | Dominio definitivo | Google, sitemap, imagen al compartir |
 | `bookingUrl` | Enlace a la ficha de Booking.com (el de Airbnb ya está puesto) | Página de reserva |
 | `quietHours` / `visitors` | Horario de silencio y política de visitantes | Habitaciones |
@@ -33,7 +32,6 @@ Hay datos que salen de sus maquetas o que no coinciden con lo que teníamos:
 |---|---|---|---|
 | Teléfono y WhatsApp | 624 86 75 40 | 620 544 320 y 611 234 567 | Confirmar cuál es real y si tiene WhatsApp |
 | Dirección | P.º de Castilla, 41 (posterior), frente a P.º de Extremadura, 3 | Paseo de Extremadura, 3 posterior | Confirmar |
-| Email | Pendiente | novaguesthouse@outlook.com y hola@novahouse.es | Confirmar |
 | Nº de habitaciones | Cuatro | Cuatro (la web anterior decía dos) | Confirmar |
 | Equipamiento | Lista de su maqueta | Secador de pelo solo aparece ahí | Confirmar |
 | Autobuses y accesos | Líneas a Madrid; A-5, M-40 y M-50 | Igual | Confirmar |

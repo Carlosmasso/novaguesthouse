@@ -13,7 +13,7 @@ const BASE = {
   phone:"624 86 75 40",  // atención 24 h, 365 días
   whatsapp:"34624867540", // confirmar que este número tiene WhatsApp
   instagram:"https://www.instagram.com/nova.guesthouse/",
-  email:"",              // "novaguesthouse@outlook.com"
+  email:"novaguesthouse@outlook.com",
   registry:"",           // nº de registro turístico
   checkin:"15:00", checkout:"11:00",
   bookingUrl:"",         // enlace a la ficha de Booking.com
