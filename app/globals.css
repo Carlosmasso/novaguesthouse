@@ -146,6 +146,9 @@ body.menu-open .fab{opacity:0;pointer-events:none}
 .hero-bg img,.phero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-bg img{object-position:50% 58%;animation:heroIn 2.2s var(--out) both}
 @keyframes heroIn{from{opacity:0;transform:scale(1.07)}}
+/* pantallas verticales (móvil): la foto entra entera de alto y la cama queda bajo el texto; se sube sin ampliarla
+   y su borde inferior se funde con el fondo oscuro (que ya es el tono del degradado bajo el texto) */
+@media (max-aspect-ratio:3/4){.hero-bg img{top:-20%;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,15,10,.26) 0%,rgba(20,15,10,0) 18%,rgba(20,17,14,0) 34%,rgba(20,17,14,.3) 58%,rgba(20,17,14,.58) 78%,var(--night) 100%)}
 .phero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,15,10,.5) 0%,rgba(20,15,10,.26) 45%,rgba(20,15,10,0) 75%),linear-gradient(180deg,rgba(20,15,10,.3) 0%,rgba(20,15,10,0) 20%)}
 .hero-in{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:var(--stack);padding-bottom:clamp(64px,7vw,104px)}

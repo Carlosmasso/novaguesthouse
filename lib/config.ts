@@ -10,13 +10,13 @@ const BASE = {
   postal:{street:"Paseo de Castilla, 41", cp:"28921", city:"Alcorcón", region:"Madrid"}, // para Google (datos estructurados)
   address:"P.º de Castilla, 41 (posterior), frente a P.º de Extremadura, 3 · 28921 Alcorcón, Madrid",
   mapsQuery:"Nova Guest House Central, Paseo de Castilla 41, 28921 Alcorcón, Madrid",
-  phone:"624 86 75 40",  // atención 24 h, 365 días
-  whatsapp:"34624867540", // confirmar que este número tiene WhatsApp
+  phone:"641 23 12 14",  // atención 24 h, 365 días
+  whatsapp:"34641231214", // confirmar que este número tiene WhatsApp
   instagram:"https://www.instagram.com/nova.guesthouse/",
   email:"novaguesthouse@outlook.com",
   registry:"",           // nº de registro turístico
   checkin:"15:00", checkout:"11:00",
-  bookingUrl:"",         // enlace a la ficha de Booking.com
+  bookingUrl:"https://www.booking.com/hotel/es/nova-guest-house-central.es.html", // enlace a la ficha de Booking.com
   airbnbUrl:"https://www.airbnb.es/rooms/1810141125220115961", // enlace a la ficha de Airbnb
   metroWalk:"5",        // minutos reales a pie hasta Alcorcón Central
   times:[                // tiempos reales desde la casa: {icon, place [ES, EN], min, how [ES, EN]}

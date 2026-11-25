@@ -27,6 +27,7 @@ export const IC: Record<string, string> = {
   kettle: '<path d="M7 8h9l1 3v8a2 2 0 01-2 2H9a2 2 0 01-2-2v-8zM7 11h10M17 12h2a2 2 0 010 4h-2M9 8l1-3h4l1 3"/>',
   dryer: '<path d="M4 6h11a4 4 0 010 8H4a1 1 0 01-1-1V7a1 1 0 011-1zM8 14l-1 7h3l1-7M20 8h1M20 12h1"/>',
   towel: '<path d="M5 4h14v4H5zM7 8v12h10V8M10 12h4"/>',
+  desk: '<path d="M3 8h18M5 8v12M19 8v12M13 8v5h6M15.5 10.5h1"/>',
   metro: '<rect x="4" y="4" width="16" height="16" transform="rotate(45 12 12)"/><path d="M8 12h8"/>',
   train: '<rect x="6" y="3" width="12" height="14" rx="3"/><path d="M6 11h12M9 21l1.5-4M15 21l-1.5-4"/><path d="M9.5 14h.01M14.5 14h.01"/>',
   bus: '<rect x="4" y="4" width="16" height="14" rx="2"/><path d="M4 11h16M7 18v2M17 18v2M8 15h.01M16 15h.01"/>',
